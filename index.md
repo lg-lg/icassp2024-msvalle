@@ -5,16 +5,6 @@ layout: default
 
 Zero-shot text-to-speech (TTS) synthesis aims to clone any unseen speaker’s voice without adaptation parameters. By quantizing speech waveform into discrete acoustic tokens and modeling these tokens with the language model, recent language model-based TTS models show zero-shot speaker adaptation capabilities with only a 3-second acoustic prompt of an unseen speaker. However, they are limited by the length of the acoustic prompt, which makes it difficult to clone personal speaking style. In this paper, we propose a novel zero-shot TTS model with the multi-scale acoustic prompts based on a neural codec language model VALL-E. A speaker-aware text encoder is proposed to learn the personal speaking style at the phoneme-level from the style prompt consisting of multiple sentences. Following that, a VALL-E based acoustic decoder is utilized to model the timbre from the timbre prompt at the frame-level and generate speech. The experimental results show that our proposed method outperforms baselines in terms of naturalness and speaker similarity, and can achieve better performance by scaling out to a longer style prompt.
 
-<center>
-    <img src="./wavs/architecture.png" width="20%" height="20%">
-    <img src="./wavs/encoder.png" width="20%" height="20%">
-  	<img src="./wavs/decoder.png" width="50%" height="50%">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;"> Fig.1: The architecture of the proposed model. </div>
-</center>
 # Subjective Evaluation
 
 To demonstrate the performance of our proposed method, some samples are provided for comparison. **GT (Reconstructed)** means the audio reconstructed from ground truth speech by the EnCodec model. **VALL-E** means an open-source implementation of VALL-E. **Proposed** means the proposed model, which considers both a 3-second timbre prompt and a style prompt consisting of ten sentences. **Proposed-3s** means the baseline model, which shares the same structure and parameters as the proposed model, but only uses a 3-second speech as both timbre prompt and style prompt. **Base-S** means the style prompt-only baseline model, which shares the same TTS backbone and style prompt as the proposed model, but excludes the timbre prompt. **Base-T** means the timbre prompt-only baseline model, which shares the same TTS backbone and timbre prompt as the proposed model, but the style prompt is removed. In addition, a pre-trained neural audio codec model, EnCodec, is utilized to generate the waveform.
